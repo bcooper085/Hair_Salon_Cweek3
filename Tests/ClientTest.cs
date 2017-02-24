@@ -37,7 +37,7 @@ namespace BarksApp
         [Fact]
         public void Save_SaveClientToDatabase_Save()
         {
-            Client newClient = new Client("Fran", 1);
+            Client newClient = new Client("Scruff", 1);
             newClient.Save();
 
             List<Client> result = Client.GetAll();

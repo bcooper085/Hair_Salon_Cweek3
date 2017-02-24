@@ -9,15 +9,21 @@ namespace BarksApp
     {
         private string _name;
         private int _id;
+        private int _stylistId;
 
-        public Client(string name, int Id = 0)
+        public Client(string name, int stylistId, int Id = 0)
         {
             _name = name;
+            _stylistId = stylistId;
             _id = Id;
         }
         public string GetName()
         {
             return _name;
+        }
+        public int GetStylistId()
+        {
+            return _stylistId;
         }
         public int GetId()
         {
@@ -48,7 +54,8 @@ namespace BarksApp
             {
                 int foundId = rdr.GetInt32(0);
                 string foundName = rdr.GetString(1);
-                Client foundClient = new Client(foundName, foundId);
+                int foundStylist = rdr.GetInt32(2);
+                Client foundClient = new Client(foundName, foundStylist, foundId);
                 allClients.Add(foundClient);
             }
             if(rdr != null)
@@ -68,12 +75,18 @@ namespace BarksApp
             SqlConnection conn = DB.Connection();
             conn.Open();
 
-            SqlCommand cmd = new SqlCommand("INSERT INTO clients(name) OUTPUT INSERTED.id VALUES(@ClientName)", conn);
+            SqlCommand cmd = new SqlCommand("INSERT INTO clients(name, stylist_id) OUTPUT INSERTED.id VALUES(@ClientName, @StylistId)", conn);
 
             SqlParameter nameParameter = new SqlParameter();
             nameParameter.ParameterName = "@ClientName";
             nameParameter.Value = this.GetName();
             cmd.Parameters.Add(nameParameter);
+
+            SqlParameter stylistParameter = new SqlParameter();
+            stylistParameter.ParameterName = "@StylistId";
+            stylistParameter.Value = this.GetStylistId();
+            cmd.Parameters.Add(stylistParameter);
+
 
             SqlDataReader rdr = cmd.ExecuteReader();
 
@@ -141,14 +154,16 @@ namespace BarksApp
 
             int foundId = 0;
             string foundName = null;
+            int foundStylist = 0;
 
             while(rdr.Read())
             {
                 foundId = rdr.GetInt32(0);
                 foundName = rdr.GetString(1);
+                foundStylist = rdr.GetInt32(2);
             }
 
-            Client foundClient = new Client(foundName, foundId);
+            Client foundClient = new Client(foundName, foundStylist, foundId);
 
             return foundClient;
         }
@@ -184,7 +199,8 @@ namespace BarksApp
                 Client newClient = (Client) otherClient;
                 bool idEquality = (this.GetId() == newClient.GetId());
                 bool nameEquality = (this.GetName() == newClient.GetName());
-                return(idEquality && nameEquality);
+                bool stylistEquality = (this.GetStylistId() == newClient.GetStylistId());
+                return(idEquality && nameEquality && stylistEquality);
             }
         }
     }

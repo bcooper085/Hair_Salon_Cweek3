@@ -13,27 +13,6 @@
                 <h1>Barks</h1>
                 <h4>Mobile Dog Grooming</h4>
             </div>
-            <div class="Stylists">
-                <div class="add-form">
-                    <form class="stylist_form" action="/stylist-add" method="post">
-                        <input type="text" name="stylist_input" placeholder="Add Stylist" required>
-                        <button type="submit" name="button">Add</button>
-                    </form>
-                </div>
-                <h2>Stylists</h2>
-                @if(Model["Stylists"].Count == 0)
-                {
-                    <h5>There are no stylists listed</h5>
-                }
-                else
-                {
-                    @foreach(var stylist in Model["Stylists"])
-                    {
-                        <a href="/stylists/@stylist.GetId()">
-                        <h5>@stylist.GetName()</h5></a>
-                    }
-                }
-            </div>
             <div class="Clients">
                 <div class="add-form">
                     <form class="client_form" action="/client-add" method="post">
@@ -52,6 +31,27 @@
                     {
                         <a href="/clients/@client.GetId()">
                         <h5>@client.GetName()</h5></a>
+                    }
+                }
+            </div>
+            <div class="Stylists">
+                <div class="add-form">
+                    <form class="stylist_form" action="/stylist-add" method="post">
+                        <input type="text" name="stylist_input" placeholder="Add Stylist" required>
+                        <button type="submit" name="button">Add</button>
+                    </form>
+                </div>
+                <h2>Stylists</h2>
+                @if(Model["Stylists"].Count == 0)
+                {
+                    <h5>There are no stylists listed</h5>
+                }
+                else
+                {
+                    @foreach(var stylist in Model["Stylists"])
+                    {
+                        <a href="/stylists/@stylist.GetId()">
+                        <h5>@stylist.GetName()</h5></a>
                     }
                 }
             </div>
