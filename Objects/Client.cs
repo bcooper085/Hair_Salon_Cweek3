@@ -124,6 +124,35 @@ namespace BarksApp
                 conn.Close();
             }
         }
+
+        public static Client Find(int id)
+        {
+            SqlConnection conn = DB.Connection();
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE id = @ClientId;", conn);
+            SqlParameter idParameter = new SqlParameter();
+            idParameter.ParameterName = "@ClientId";
+            idParameter.Value = id.ToString();
+
+            cmd.Parameters.Add(idParameter);
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            int foundId = 0;
+            string foundName = null;
+
+            while(rdr.Read())
+            {
+                foundId = rdr.GetInt32(0);
+                foundName = rdr.GetString(1);
+            }
+
+            Client foundClient = new Client(foundName, foundId);
+
+            return foundClient;
+        }
+
         public static void DeleteClient(int id)
         {
             SqlConnection conn = DB.Connection();

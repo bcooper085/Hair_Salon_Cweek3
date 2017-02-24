@@ -58,6 +58,18 @@ namespace BarksApp
         }
 
         [Fact]
+        public void Find_FindSearchedStylist_Find()
+        {
+            Client newClient = new Client("Fran", 1);
+            newClient.Save();
+
+
+            Client foundClient = Client.Find(newClient.GetId());
+
+            Assert.Equal(newClient, foundClient);
+        }
+
+        [Fact]
         public void Delete_DeleteClientFromDatabase_Delete()
         {
             Client newClient = new Client("Fran", 1);
