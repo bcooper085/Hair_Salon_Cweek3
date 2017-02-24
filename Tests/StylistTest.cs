@@ -10,17 +10,19 @@ namespace BarksApp
     {
         public StylistTest()
         {
-            BDConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=hair_salon_test;Integrated Security=SSPI;";
+            DBConfiguration.ConnectionString = "Data Source=(localdb)\\mssqllocaldb;Initial Catalog=hair_salon_test;Integrated Security=SSPI;";
         }
         public void Dispose()
         {
-            Stylist.DeleteAll()
+            Stylist.DeleteAll();
         }
 
         [Fact]
-        public void Test_IfEmptyOnLoad_Empty()
+        public void GetAll_IfEmptyOnLoad_Empty()
         {
-            
+            int result = Stylist.GetAll().Count;
+
+            Assert.Equal(0, result);
         }
     }
 }
