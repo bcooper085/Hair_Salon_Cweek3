@@ -24,5 +24,14 @@ namespace BarksApp
 
             Assert.Equal(0, result);
         }
+
+        [Fact]
+        public void Test_IfNameIsEqual_Equal()
+        {
+            Stylist one = new Stylist("Fran", 1);
+            Stylist two = new Stylist("Fran", 1);
+
+            Assert.Equal(one, two);
+        }
     }
 }

@@ -69,5 +69,22 @@ namespace BarksApp
 
             return allStylists;
         }
+
+//Override
+        public override bool Equals(System.Object otherStylist)
+        {
+            if(!(otherStylist is Stylist))
+            {
+                return false;
+            }
+            else
+            {
+                Stylist newStylist = (Stylist) otherStylist;
+                bool idEquality = (this.GetId() == newStylist.GetId());
+                bool nameEquality = (this.GetName() == newStylist.GetName());
+                bool clientEquality = (this.GetClientId() == newStylist.GetClientId());
+                return(idEquality && nameEquality && clientEquality);
+            }
+        }
     }
 }
