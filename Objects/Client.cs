@@ -183,6 +183,43 @@ namespace BarksApp
             conn.Close();
         }
 
+        public static List<Client> GetByStylist(int id)
+        {
+            List<Client> foundByStylistClients = new List<Client>{};
+            SqlConnection conn = DB.Connection();
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE stylist_id = @StylistId ORDER BY name;", conn);
+
+            SqlParameter stylistParameter = new SqlParameter();
+            stylistParameter.ParameterName = "@StylistId";
+            stylistParameter.Value = id;
+            cmd.Parameters.Add(stylistParameter);
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while(rdr.Read())
+            {
+                int foundId = rdr.GetInt32(0);
+                string foundName = rdr.GetString(1);
+                int foundStylistId = rdr.GetInt32(2);
+                Client foundClient = new Client(foundName, foundStylistId, foundId);
+                foundByStylistClients.Add(foundClient);
+            }
+
+            if(rdr != null)
+            {
+                rdr.Close();
+            }
+            if(conn != null)
+            {
+                conn.Close();
+            }
+
+            return foundByStylistClients;
+
+        }
+
 
 
 

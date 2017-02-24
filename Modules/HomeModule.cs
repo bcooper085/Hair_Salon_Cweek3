@@ -14,7 +14,15 @@ namespace BarksApp
             Post["/stylist-add"] = _ => {
                 Stylist newStylist = new Stylist(Request.Form["stylist_input"]);
                 newStylist.Save();
-                return View["index.cshtml", ModelMaker()];
+                return View["stylist.cshtml", ModelMaker()];
+            };
+
+            Get["/stylists/{id}"]= parameters => {
+                Stylist newStylist = Stylist.Find(parameters.id);
+                Dictionary<string, object> model = ModelMaker();
+                model.Add("Stylist Object", newStylist);
+                model.Add("Client List", Client.GetByStylist(newStylist.GetId()));
+                return View["stylist.cshtml", model];
             };
 
         }
