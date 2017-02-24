@@ -47,6 +47,18 @@ namespace BarksApp
         }
 
         [Fact]
+        public void Find_FindSearchedStylist_Find()
+        {
+            Stylist newStylist = new Stylist("Fran", 1);
+            newStylist.Save();
+
+
+            Stylist foundStylist = Stylist.Find(newStylist.GetId());
+
+            Assert.Equal(newStylist, foundStylist);
+        }
+
+        [Fact]
         public void UpdateName_EditStylistInDatabase_Edit()
         {
             Stylist newStylist = new Stylist("Fran", 1);

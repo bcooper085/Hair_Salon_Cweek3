@@ -104,6 +104,7 @@ namespace BarksApp
                 conn.Close();
             }
         }
+
         public void UpdateName(string newName)
         {
             SqlConnection conn = DB.Connection();
@@ -136,6 +137,37 @@ namespace BarksApp
                 conn.Close();
             }
         }
+
+        public static Stylist Find(int id)
+        {
+            SqlConnection conn = DB.Connection();
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM stylists WHERE id = @StylistId;", conn);
+            SqlParameter idParameter = new SqlParameter();
+            idParameter.ParameterName = "@StylistId";
+            idParameter.Value = id.ToString();
+
+            cmd.Parameters.Add(idParameter);
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            int foundId = 0;
+            string foundName = null;
+            int foundClient = 0;
+
+            while(rdr.Read())
+            {
+                foundId = rdr.GetInt32(0);
+                foundName = rdr.GetString(1);
+                foundClient = rdr.GetInt32(2);
+            }
+
+            Stylist foundStylist = new Stylist(foundName, foundClient, foundId);
+
+            return foundStylist;
+        }
+
         public static void DeleteStylist(int id)
         {
             SqlConnection conn = DB.Connection();
