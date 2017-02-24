@@ -33,5 +33,17 @@ namespace BarksApp
 
             Assert.Equal(one, two);
         }
+
+        [Fact]
+        public void Save_SaveStylistToDatabase_Save()
+        {
+            Stylist newStylist = new Stylist("Fran", 1);
+            newStylist.Save();
+
+            List<Stylist> result = Stylist.GetAll();
+            List<Stylist> testResult = new List<Stylist>{newStylist};
+
+            Assert.Equal(testResult, result);
+        }
     }
 }

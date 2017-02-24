@@ -70,6 +70,45 @@ namespace BarksApp
             return allStylists;
         }
 
+        public void Save()
+        {
+            SqlConnection conn = DB.Connection();
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("INSERT INTO stylists(name, client_Id) OUTPUT INSERTED.id VALUES(@StylistName, @ClientId)", conn);
+
+            SqlParameter nameParameter = new SqlParameter();
+            nameParameter.ParameterName = "@StylistName";
+            nameParameter.Value = this.GetName();
+            cmd.Parameters.Add(nameParameter);
+
+            SqlParameter clientParameter = new SqlParameter();
+            clientParameter.ParameterName = "@ClientId";
+            clientParameter.Value = this.GetClientId();
+            cmd.Parameters.Add(clientParameter);
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while(rdr.Read())
+            {
+                this._id = rdr.GetInt32(0);
+            }
+
+            if(rdr != null)
+            {
+                rdr.Close();
+            }
+
+            if(conn != null)
+            {
+                conn.Close();
+            }
+        }
+
+
+
+
+
 //Override
         public override bool Equals(System.Object otherStylist)
         {
