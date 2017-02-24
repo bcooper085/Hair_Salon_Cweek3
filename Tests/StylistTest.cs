@@ -45,5 +45,16 @@ namespace BarksApp
 
             Assert.Equal(testResult, result);
         }
+
+        [Fact]
+        public void UpdateName_EditStylistInDatabase_Edit()
+        {
+            Stylist newStylist = new Stylist("Fran", 1);
+            newStylist.Save();
+
+            newStylist.UpdateName("Francisco");
+
+            Assert.Equal("Francisco", newStylist.GetName());
+        }
     }
 }

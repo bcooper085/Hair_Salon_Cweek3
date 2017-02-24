@@ -18,7 +18,7 @@ Stylist Specs:
 
 Client Specs:
 
-- User can add Client
+- User can add Client to a Stylist
 - User can view all Clients
 - User can edit a Clients name
 - User can delete a Client
