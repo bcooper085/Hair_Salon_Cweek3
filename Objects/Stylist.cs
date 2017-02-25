@@ -93,6 +93,34 @@ namespace BarksApp
             }
         }
 
+        public static Stylist FindByName(string searchedName)
+        {
+            SqlConnection conn = DB.Connection();
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM stylists WHERE name = @StylistName;", conn);
+            SqlParameter idParameter = new SqlParameter();
+            idParameter.ParameterName = "@StylistName";
+            idParameter.Value = searchedName;
+
+            cmd.Parameters.Add(idParameter);
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            int foundId = 0;
+            string foundName = null;
+
+            while(rdr.Read())
+            {
+                foundId = rdr.GetInt32(0);
+                foundName = rdr.GetString(1);
+            }
+
+            Stylist foundStylist = new Stylist(foundName, foundId);
+
+            return foundStylist;
+        }
+
         public void UpdateName(string newName)
         {
             SqlConnection conn = DB.Connection();
