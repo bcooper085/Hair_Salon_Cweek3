@@ -13,13 +13,13 @@
                 <h1>Barks</h1>
                 <h4>Mobile Dog Grooming</h4>
             </div>
-            <div class="Stylists">
+            <div class="forms">
                 <div class="add-form">
                     <form class="stylist_form" action="/stylist-add" method="post">
                         <input type="text" name="stylist_input" placeholder="Add Stylist" required>
-                        <input type="text" name="client_input" placeholder="Add Client" required>
                         <button type="submit" name="button">Add</button>
                     </form>
+    
                 </div>
                 <h2>Stylists</h2>
                 @if(Model["Stylists"].Count == 0)

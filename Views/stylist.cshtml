@@ -13,6 +13,11 @@
                 <h1>Barks</h1>
                 <h4>Mobile Dog Grooming</h4>
             </div>
+            <form class="client_form" action="/client-add" method="post">
+                <input type="text" name="stylist_input" placeholder="Add Stylist" required>
+                <input type="text" name="client_input" placeholder="Add Client" required>
+                <button type="submit" name="button">Add</button>
+            </form>
             <div class="Stylists">
                 <h2>Stylists</h2>
                     @foreach(var stylist in Model["Stylists"])
@@ -22,12 +27,6 @@
                     }
             </div>
             <div class="Clients">
-                <div class="add-form">
-                    <form class="client_form" action="/client-add" method="post">
-                        <input type="text" name="client_input" placeholder="Add Client" required>
-                        <button type="submit" name="button">Add</button>
-                    </form>
-                </div>
                 <h2>Clients</h2>
                 @if(Model["Clients"].Count == 0)
                 {
@@ -35,7 +34,7 @@
                 }
                 else
                 {
-                    @foreach(var client in Model["Clients"])
+                    foreach(var client in Model["Clients"])
                     {
                         <a href="/clients/@client.GetId()">
                         <h5>@client.GetName()</h5></a>
