@@ -1,47 +1,12 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="/Content/css/styles.css" media="screen" title="no title">
-        <script src="/Content/js/jquery-3.1.1.js" charset="utf-8"></script>
-        <script src="/Content/js/scripts.js" charset="utf-8"></script>
-        <title>Barks</title>
-    </head>
-    <body>
-        <div class="container">
-            <div class="heading">
-                <h1>Barks</h1>
-                <h4>Mobile Dog Grooming</h4>
-            </div>
-            <form class="client_form" action="/client-add" method="post">
-                <input type="text" name="stylist_input" placeholder="Add Stylist" required>
-                <input type="text" name="client_input" placeholder="Add Client" required>
-                <button type="submit" name="button">Add</button>
-            </form>
-            <div class="Stylists">
-                <h2>Stylists</h2>
-                    @foreach(var stylist in Model["Stylists"])
-                    {
-                        <a href="/stylists/@stylist.GetId()">
-                        <h5>@stylist.GetName()</h5></a>
-                    }
-            </div>
-            <div class="Clients">
-                <h2>Clients</h2>
-                @if(Model["Clients"].Count == 0)
-                {
-                    <h5>There are no clients listed</h5>
-                }
-                else
-                {
-                    foreach(var client in Model["Clients"])
-                    {
-                        <a href="/clients/@client.GetId()">
-                        <h5>@client.GetName()</h5></a>
-                    }
-                }
-            </div>
-            <h4><a href="/">Return Home</h4>
-        </div>
-    </body>
-</html>
+@{
+    Layout="Shared/_Layout.cshtml";
+}
+
+<h4>Choose your stylist</h4>
+@foreach(var stylist in Model)
+{
+    <a href="@stylist.GetId()"><h5>@stylist.GetName()</h5></a>
+}
+<form class="" action="/delete-all" method="post">
+    <button type="submit" name="button">Delete All</button>
+</form>

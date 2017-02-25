@@ -36,7 +36,7 @@ namespace BarksApp
 
         public static List<Stylist> GetAll()
         {
-            List<Stylist> allStylists = new List<Stylist>();
+            List<Stylist> allStylists = new List<Stylist>{};
             SqlConnection conn = DB.Connection();
             conn.Open();
 
@@ -48,8 +48,8 @@ namespace BarksApp
             {
                 int foundId = rdr.GetInt32(0);
                 string foundName = rdr.GetString(1);
-                Stylist foundFullStylist = new Stylist(foundName, foundId);
-                allStylists.Add(foundFullStylist);
+                Stylist foundStylist = new Stylist(foundName, foundId);
+                allStylists.Add(foundStylist);
             }
             if(rdr != null)
             {
@@ -162,7 +162,7 @@ namespace BarksApp
             SqlCommand cmd = new SqlCommand("SELECT * FROM stylists WHERE id = @StylistId;", conn);
             SqlParameter idParameter = new SqlParameter();
             idParameter.ParameterName = "@StylistId";
-            idParameter.Value = id.ToString();
+            idParameter.Value = id;
 
             cmd.Parameters.Add(idParameter);
 
@@ -175,12 +175,57 @@ namespace BarksApp
             {
                 foundId = rdr.GetInt32(0);
                 foundName = rdr.GetString(1);
-
             }
 
             Stylist foundStylist = new Stylist(foundName, foundId);
 
+            if (rdr != null)
+            {
+                rdr.Close();
+            }
+            if (conn != null)
+            {
+                conn.Close();
+            }
+
             return foundStylist;
+
+        }
+
+        public List<Client> GetClient()
+        {
+            List<Client> foundClients = new List<Client>{};
+            SqlConnection conn = DB.Connection();
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM clients WHERE stylist_id = @StylistId;", conn);
+
+            SqlParameter stylistParameter = new SqlParameter();
+            stylistParameter.ParameterName = "@StylistId";
+            stylistParameter.Value = this.GetId();
+            cmd.Parameters.Add(stylistParameter);
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while(rdr.Read())
+            {
+                int foundId = rdr.GetInt32(0);
+                string foundName = rdr.GetString(1);
+                int foundStylistId = rdr.GetInt32(2);
+                Client foundClient = new Client(foundName, foundStylistId, foundId);
+                foundClients.Add(foundClient);
+            }
+
+            if(rdr != null)
+            {
+                rdr.Close();
+            }
+            if(conn != null)
+            {
+                conn.Close();
+            }
+
+            return foundClients;
         }
 
         public static void DeleteStylist(int id)
