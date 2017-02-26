@@ -28,31 +28,33 @@ namespace BarksApp
                 List<Client> allClients = Client.GetAll();
                 return View["client.cshtml", allClients];
             };
-            // Post["/client"] = _ => {
-            //     Client newClient = new Client(Request.Form["client_input"], Request.Form["choose-stylist"]);
-            //     newClient.Save();
-            //     return View["success.cshtml", newClient];
-            // };
-            // Get["/stylists/{id}"]= parameters => {
-            //     Stylist foundStylist = Stylist.Find(parameters.id);
-            //     Dictionary<string, object> model = ModelMaker();
-            //     model.Add("Stylists", foundStylist);
-            //     model.Add("Client", Stylist.GetClient());
-            //     return View["stylist.cshtml", model];
-            // };
 
-            // Get["/client/{id}"] = parameters => {
-            //
-            // }
+            Get["/stylist/{id}/clients"]= parameters => {
+                Stylist currentStylist = Stylist.Find(parameters.id);
+                List<Client> stylistClients = currentStylist.GetClient();
+                Dictionary<string, object> model = new Dictionary<string, object>(){{"stylist", currentStylist}, {"clients", stylistClients}};
+                return View["stylists-clients.cshtml", model];
+            };
 
+            Post["/stylist/{id}/clients"] = parameters => {
+                Client newClient = new Client(Request.Form["client_input"], parameters.id);
+                newClient.Save();
+                Stylist currentStylist = Stylist.Find(parameters.id);
+                List<Client> stylistClients = currentStylist.GetClient();
+                Dictionary<string, object> model = new Dictionary<string, object>(){{"stylist", currentStylist}, {"clients", stylistClients}};
+                return View["stylists-clients.cshtml", newClient];
+            };
 
-            // Get["/{stylistId}/clients/{id}"] = parameters => {
-            //     Client foundClient = Client.Find(parameters.id);
-            //     Dictionary<string, object> model = ModelMaker();
-            //     model.Add("Clients", foundClient);
-            //     return View["client.cshtml", model];
-            // };
+            Post["/client/new"] = parameters => {
+                Client newClient = new Client(Request.Form["client_input"], Request.Form["choose-stylist"]);
+                newClient.Save();
+                Stylist currentStylist = Stylist.Find(parameters.id);
+                List<Client> stylistClients = currentStylist.GetClient();
+                Dictionary<string, object> model = new Dictionary<string, object>(){{"stylist", currentStylist}, {"clients", stylistClients}};
+                return View["stylists-clients.cshtml", newClient];
+            };
 
+            
             Post["/delete-all"] = _ => {
                 Stylist.DeleteAll();
                 return View["index.cshtml"];

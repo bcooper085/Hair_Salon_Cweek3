@@ -5,30 +5,8 @@
 <div class="row">
     <h2>Client List</h2>
 
-    @if(Model["Client"].Count == 0)
-    {
-        <h5>There are no clients listed with this stylist</h5>
-    }
-    else
-    {
-        <h4>Clients with this stylist:</h4>
 
-        foreach(var client in @Model["Client"])
-        {
-            <a href="/client/@client.GetId()"><h5>@client.GetName()</h5></div></a>
-        }
-
-    }
-    <div class="delete_field">
-        <form  action="/client/@Model["Client"].GetId()/delete" method="post">
-            <input type="hidden" name="_method" value="DELETE">
-            <button type="submit" name="button">Delete Client</button>
-        </form>
-    </div>
-</div>
-_________________________________________________________________________________________
-<div class="container">
-    <form class="client_form" action="/client/new" method="post">
+    <!-- <form class="client_form" action="/client/new" method="post">
         <input type="text" name="client_input" placeholder="Add Client" required>
         <select name="choose-stylist">
             <option value="">Select Stylist</option>
@@ -38,8 +16,14 @@ ________________________________________________________________________________
             }
         </select>
         <button type="submit" name="button">Add</button>
-    </form>
+    </form> -->
 
+    <!-- <div class="delete_field">
+        <form  action="/client/@Model["Client"].GetId()/delete" method="post">
+            <input type="hidden" name="_method" value="DELETE">
+            <button type="submit" name="button">Delete Client</button>
+        </form>
+    </div> -->
     <h4><a href="/">Return Home</h4>
 
 </div>

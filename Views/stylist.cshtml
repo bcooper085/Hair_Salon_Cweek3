@@ -5,7 +5,7 @@
 <h4>Choose your stylist</h4>
 @foreach(var stylist in Model)
 {
-    <a href="@stylist.GetId()"><h5>@stylist.GetName()</h5></a>
+    <a href="stylist/@stylist.GetId()/clients"><h5>@stylist.GetName()</h5></a>
 }
 <form class="" action="/delete-all" method="post">
     <button type="submit" name="button">Delete All</button>
