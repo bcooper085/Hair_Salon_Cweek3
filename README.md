@@ -4,7 +4,9 @@
 ## By Brandon Cooper
 
 # Description
-A mock site to schedule your pets grooming with your favorite groomer.  We come to you.
+### Clone branch named *Updated* for all features.
+<a href="https://github.com/bcooper085/Hair_Salon_Cweek3/tree/updated">Updated branch here</a>
+##### A mock site to schedule your pets grooming with your favorite groomer.  We come to you.
 
 # Specs
 
