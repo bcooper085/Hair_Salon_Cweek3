@@ -42,7 +42,7 @@ namespace BarksApp
                 Stylist currentStylist = Stylist.Find(parameters.id);
                 List<Client> stylistClients = currentStylist.GetClient();
                 Dictionary<string, object> model = new Dictionary<string, object>(){{"stylist", currentStylist}, {"clients", stylistClients}};
-                return View["stylists-clients.cshtml", newClient];
+                return View["stylists-clients.cshtml", model];
             };
 
             Post["/client/new"] = parameters => {
@@ -51,19 +51,18 @@ namespace BarksApp
                 Stylist currentStylist = Stylist.Find(parameters.id);
                 List<Client> stylistClients = currentStylist.GetClient();
                 Dictionary<string, object> model = new Dictionary<string, object>(){{"stylist", currentStylist}, {"clients", stylistClients}};
-                return View["stylists-clients.cshtml", newClient];
+                return View["stylists-clients.cshtml", model];
             };
 
-            
-            Post["/delete-all"] = _ => {
+            Post["/delete-all-stylist"] = _ => {
                 Stylist.DeleteAll();
                 return View["index.cshtml"];
             };
 
-            // Delete["/client/{id}/delete"] = parameters => {
-            //     Client.DeleteClient(parameters.id);
-            //     return View["client.cshtml", ModelMaker()];
-            // };
+            Post["/delete-all-client"] = _ => {
+                Client.DeleteAll();
+                return View["index.cshtml"];
+            };
         }
     }
 }

@@ -2,11 +2,12 @@
     Layout="Shared/_Layout.cshtml";
 }
 
-<h4>Choose your stylist</h4>
+<h2>Select groomer to add pet:</h2>
 @foreach(var stylist in Model)
 {
     <a href="stylist/@stylist.GetId()/clients"><h5>@stylist.GetName()</h5></a>
 }
-<form class="" action="/delete-all" method="post">
+<h4><a href="/">Return Home</h4>
+<form class="" action="/delete-all-stylist" method="post">
     <button type="submit" name="button">Delete All</button>
 </form>

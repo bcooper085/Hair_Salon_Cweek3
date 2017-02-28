@@ -1,0 +1,17 @@
+body {
+    background-color: rgba(220, 220, 220, .9);
+}
+
+h1, h3 {
+    text-align: center;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+    font-size: 25px;
+}
+
+a:hover {
+    color: green;
+}

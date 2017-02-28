@@ -1,14 +1,14 @@
 @{
     Layout="Shared/_Layout.cshtml";
 }
-<h4><a href="/">Return Home</h4></a>
-<h3>Client List</h3>
+<h2>Client List for @Model["stylist"].GetName()</h2>
 @foreach(var client in Model["clients"])
 {
-    <li>@client.GetName()</li>
+    <h2>@client.GetName()</h2>
 }
-<h4>Add Client</h4>
+<h4>Add Pet</h4>
 <form action="/stylist/@Model["stylist"].GetId()/clients" method="post">
     <input type="text" name="client_input" placeholder="Clients Name">
     <button type="submit" name="button">Add</button>
 </form>
+<h4><a href="/">Return Home</h4></a>

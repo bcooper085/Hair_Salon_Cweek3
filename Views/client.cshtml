@@ -3,27 +3,15 @@
 }
 
 <div class="row">
-    <h2>Client List</h2>
+    <h2>Pet List for Barks</h2>
+    @foreach(var client in Model)
+    {
+        <h5>@client.GetName()</h5>
+    }
 
-
-    <!-- <form class="client_form" action="/client/new" method="post">
-        <input type="text" name="client_input" placeholder="Add Client" required>
-        <select name="choose-stylist">
-            <option value="">Select Stylist</option>
-            @foreach(var stylist in Model["Stylists"])
-            {
-                <option value="@stylist.GetId()">@stylist.GetName()</option>
-            }
-        </select>
-        <button type="submit" name="button">Add</button>
-    </form> -->
-
-    <!-- <div class="delete_field">
-        <form  action="/client/@Model["Client"].GetId()/delete" method="post">
-            <input type="hidden" name="_method" value="DELETE">
-            <button type="submit" name="button">Delete Client</button>
-        </form>
-    </div> -->
     <h4><a href="/">Return Home</h4>
+    <form class="" action="/delete-all-client" method="post">
+        <button type="submit" name="button">Delete All</button>
+    </form>
 
 </div>

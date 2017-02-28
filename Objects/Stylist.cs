@@ -93,66 +93,6 @@ namespace BarksApp
             }
         }
 
-        public static Stylist FindByName(string searchedName)
-        {
-            SqlConnection conn = DB.Connection();
-            conn.Open();
-
-            SqlCommand cmd = new SqlCommand("SELECT * FROM stylists WHERE name = @StylistName;", conn);
-            SqlParameter idParameter = new SqlParameter();
-            idParameter.ParameterName = "@StylistName";
-            idParameter.Value = searchedName;
-
-            cmd.Parameters.Add(idParameter);
-
-            SqlDataReader rdr = cmd.ExecuteReader();
-
-            int foundId = 0;
-            string foundName = null;
-
-            while(rdr.Read())
-            {
-                foundId = rdr.GetInt32(0);
-                foundName = rdr.GetString(1);
-            }
-
-            Stylist foundStylist = new Stylist(foundName, foundId);
-
-            return foundStylist;
-        }
-
-        public void UpdateName(string newName)
-        {
-            SqlConnection conn = DB.Connection();
-            conn.Open();
-
-            SqlCommand cmd = new SqlCommand("UPDATE stylists SET name = @NewName OUTPUT INSERTED.name WHERE id = @StylistId;", conn);
-            SqlParameter newNameParameter = new SqlParameter();
-            newNameParameter.ParameterName = "@NewName";
-            newNameParameter.Value = newName;
-            cmd.Parameters.Add(newNameParameter);
-
-            SqlParameter idParameter = new SqlParameter();
-            idParameter.ParameterName = "@StylistId";
-            idParameter.Value = this.GetId();
-            cmd.Parameters.Add(idParameter);
-
-            SqlDataReader rdr = cmd.ExecuteReader();
-
-            while(rdr.Read())
-            {
-                this._name = rdr.GetString(0);
-            }
-
-            if(rdr != null)
-            {
-                rdr.Close();
-            }
-            if(conn != null)
-            {
-                conn.Close();
-            }
-        }
 
         public static Stylist Find(int id)
         {
@@ -191,7 +131,6 @@ namespace BarksApp
             return foundStylist;
 
         }
-
         public List<Client> GetClient()
         {
             List<Client> foundClients = new List<Client>{};
@@ -227,6 +166,38 @@ namespace BarksApp
 
             return foundClients;
         }
+        public void UpdateName(string newName)
+        {
+            SqlConnection conn = DB.Connection();
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("UPDATE stylists SET name = @NewName OUTPUT INSERTED.name WHERE id = @StylistId;", conn);
+            SqlParameter newNameParameter = new SqlParameter();
+            newNameParameter.ParameterName = "@NewName";
+            newNameParameter.Value = newName;
+            cmd.Parameters.Add(newNameParameter);
+
+            SqlParameter idParameter = new SqlParameter();
+            idParameter.ParameterName = "@StylistId";
+            idParameter.Value = this.GetId();
+            cmd.Parameters.Add(idParameter);
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            while(rdr.Read())
+            {
+                this._name = rdr.GetString(0);
+            }
+
+            if(rdr != null)
+            {
+                rdr.Close();
+            }
+            if(conn != null)
+            {
+                conn.Close();
+            }
+        }
 
         public static void DeleteStylist(int id)
         {
@@ -241,6 +212,33 @@ namespace BarksApp
             cmd.Parameters.Add(idParameter);
             cmd.ExecuteNonQuery();
             conn.Close();
+        }
+        public static Stylist FindByName(string searchedName)
+        {
+            SqlConnection conn = DB.Connection();
+            conn.Open();
+
+            SqlCommand cmd = new SqlCommand("SELECT * FROM stylists WHERE name = @StylistName;", conn);
+            SqlParameter idParameter = new SqlParameter();
+            idParameter.ParameterName = "@StylistName";
+            idParameter.Value = searchedName;
+
+            cmd.Parameters.Add(idParameter);
+
+            SqlDataReader rdr = cmd.ExecuteReader();
+
+            int foundId = 0;
+            string foundName = null;
+
+            while(rdr.Read())
+            {
+                foundId = rdr.GetInt32(0);
+                foundName = rdr.GetString(1);
+            }
+
+            Stylist foundStylist = new Stylist(foundName, foundId);
+
+            return foundStylist;
         }
 
 
